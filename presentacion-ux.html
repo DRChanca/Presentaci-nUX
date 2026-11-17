@@ -189,6 +189,12 @@
 .cover-author{display:flex;flex-direction:column;gap:10px;border-left:3px solid var(--accent);padding-left:21px}
 .cover-author strong{font-size:28px;font-weight:500}
 .cover-author span{font-size:19px;letter-spacing:.08em;color:var(--muted)}
+.cover-online{align-self:flex-start;margin-top:24px;color:var(--accent);font-size:20px;text-underline-offset:6px;text-decoration-thickness:1px}
+.cover-online:hover{color:var(--ink)}
+.print-online{position:absolute;top:35px;left:75px;right:75px;padding:16px 22px;border:1px solid #d3f890;border-radius:10px;background:#1a2215}
+.print-online a{display:inline-flex;flex-direction:column;gap:7px;color:#d3f890;font-size:29px;line-height:1.2;text-decoration:underline;text-underline-offset:4px}
+.print-online span{font-size:19px;color:#f0f1e9}
+@media print{.print-page:first-child{padding-top:175px}.print-page:first-child img{background:transparent!important;object-position:center}}
 .cover-mark{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:650px;height:310px;object-fit:contain;filter:invert(1) brightness(.94)}
 .end-cover{align-items:center;text-align:center}
 .end-cover h2{font-size:128px}
@@ -341,6 +347,7 @@
     <p class="cover-university">Universidad de Oviedo</p>
     <h1>Experiencia<br>de <em>Usuario</em></h1>
     <div class="cover-author"><strong>David Rodriguez Chanca</strong><span>uo289521</span></div>
+    <a class="cover-online" href="https://drchanca.github.io/Presentaci-nUX/presentacion-ux" target="_blank" rel="noopener noreferrer">Presentación online</a>
     <img class="cover-mark" data-asset="uniovi-logo" alt="Universidad de Oviedo" width="650" height="310">
   </section>
 
@@ -923,7 +930,8 @@ function buildPrint(){
  $('#printDeck').innerHTML=content.map(([eyebrow,title,body,source],index)=>{
    const version=index===1?1:index===2||index===3?2:index===4?3:null;
   body=body.replace('<p>Las bajadas narrativas desde 10 no representan el cálculo de la rúbrica.</p>','').replace('<p>En la presentación interactiva se recrean los recorridos de forma acelerada, no proporcional.</p>','');
-  return `<section class="print-page"><p class="eyebrow">${eyebrow}</p>${version?`<strong class="print-version">Versión ${version}</strong>`:''}<h2>${title}</h2>${body}<p class="print-source">${source}</p></section>`;
+   const online=index===0?'<div class="print-online"><a href="https://drchanca.github.io/Presentaci-nUX/presentacion-ux" target="_blank" rel="noopener noreferrer">Presentación online<span>https://drchanca.github.io/Presentaci-nUX/presentacion-ux</span></a></div>':'';
+   return `<section class="print-page">${online}<p class="eyebrow">${eyebrow}</p>${version?`<strong class="print-version">Versión ${version}</strong>`:''}<h2>${title}</h2>${body}<p class="print-source">${source}</p></section>`;
  }).join('');
 }
 buildPrint();
